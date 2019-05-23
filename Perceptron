@@ -1,0 +1,35 @@
+import numpy as np
+from random import choice
+from numpy import array, dot, random
+
+#training data
+samples = [(array([1,0,1,0,0,1]), 1),
+           (array([1,1,0,1,0,0]), 1),               
+           (array([0,1,0,0,1,1]), 0),                 
+           (array([0,1,0,1,0,1]), 0)]
+
+#hyperparameters
+lr = 0.05
+random.seed(1)
+w = random.random(6)
+
+#activation function
+step = lambda x : 1 if x > 0 else 0
+
+#training
+for i in range(1000):
+
+    #load data
+    input, output = choice(samples)
+    
+    #synapse
+    syn = step(dot(input,w))
+    
+    #update weights
+    error = output - syn
+    w += lr * error * input
+
+#results
+for input, output in samples:
+    syn = step(dot(input,w))
+    print(syn)
